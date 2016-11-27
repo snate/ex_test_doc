@@ -3,9 +3,10 @@ defmodule ExTestDoc do
   alias ExTestDoc.Module, as: ModuleInfo
   alias ExTestDoc.ModuleParser, as: ModuleParser
 
-  def generate(dir, _formatter) do
+  def generate(dir, formatter) do
     generate(dir)
     |> List.flatten
+    |> find_formatter(formatter).run
     |> IO.inspect
   end
 
@@ -57,6 +58,11 @@ defmodule ExTestDoc do
       true                ->
         get_module_name rem
     end
+  end
+
+  defp find_formatter(name) do
+    [ExTestDoc.Formatter, String.capitalize(Atom.to_string(name))]
+    |> Module.concat()
   end
 
   defp mod_regex do
