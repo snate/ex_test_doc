@@ -7,7 +7,7 @@ defmodule ModuleParser do
   end
 
   def parse(mod = %Module{name: name}) do
-    IO.puts "Starting docs generation for " <> name <> "..."
+    IO.puts "Starting docs generation for " <> name <> "Test..."
     extract_tests mod.lines
     #parse %Module{name: mod, lines: rem}
   end
