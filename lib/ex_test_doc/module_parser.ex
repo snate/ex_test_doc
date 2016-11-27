@@ -8,20 +8,45 @@ defmodule ModuleParser do
 
   def parse(mod = %Module{name: name}) do
     IO.puts "Starting docs generation for " <> name <> "Test..."
-    extract_tests mod.lines
-    #parse %Module{name: mod, lines: rem}
+    %{mod | tests: extract_tests mod.lines}
   end
 
   def extract_tests([]) do
-    IO.puts ">>>EOF"
   end
 
   def extract_tests([line | rem]) do
-    IO.inspect line
-    extract_tests rem
+    cond do
+      Regex.match?(start_doc_regex, line) ->
+        {test_description, after_doc} = get_test_description(rem)
+        [test_decl | after_test] = after_doc
+        test_name = String.split(test_decl,"\"")
+                    |> Enum.fetch!(1)
+        [{test_name, String.slice(test_description, 0..-2)} |
+          extract_tests after_doc]
+      true           ->
+        extract_tests rem
+    end
   end
 
-  # TODO list:
-  # - when it finds a @doc""", start writing docs for test
-  # - when it finds a 'test', take the subsequent string
+  defp get_test_description([]) do
+    {"", []}
+  end
+
+  defp get_test_description([line | rem]) do
+    cond do
+      Regex.match?(end_doc_regex, line) ->
+        {"", rem}
+      true                              ->
+        {docs, new_rem} = get_test_description rem
+        {line <> " " <> docs, new_rem}
+    end
+  end
+
+  defp start_doc_regex do
+    Regex.compile!("@doc[ ]\"\"\"")
+  end
+
+  defp end_doc_regex do
+    Regex.compile!("\"\"\"")
+  end
 end
