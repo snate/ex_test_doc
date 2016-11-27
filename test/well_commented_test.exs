@@ -3,6 +3,7 @@ defmodule WellCommentedTest do
 
   @doc """
   Hello world
+  Tim
   """
   test "the truth" do
     assert 1 + 1 == 2
