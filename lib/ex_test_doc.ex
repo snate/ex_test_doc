@@ -2,7 +2,11 @@ defmodule ExTestDoc do
 
   alias ExTestDoc.Module, as: Module
 
-  def generate(dir) do
+  def generate(dir, _formatter) do
+    generate(dir)
+  end
+
+  defp generate(dir) do
     File.ls!(dir)
     |> (Enum.map &(file_or_folder &1))
     |> (Enum.map &(generate_docs_for &1, dir))
@@ -15,7 +19,7 @@ defmodule ExTestDoc do
     end
   end
 
-  def generate_docs_for({:file, file_name}, dir) do
+  defp generate_docs_for({:file, file_name}, dir) do
     IO.puts "Generating docs for test: " <> inspect{full_path(dir, file_name)}
     content = File.read! full_path(dir, file_name)
     content
@@ -25,7 +29,7 @@ defmodule ExTestDoc do
            |> ModuleParser.parse
   end
 
-  def generate_docs_for({:folder, folder_name}, dir) do
+  defp generate_docs_for({:folder, folder_name}, dir) do
     IO.puts "Entering folder: " <> inspect{full_path(dir, folder_name)}
     generate(full_path(dir, folder_name))
   end
