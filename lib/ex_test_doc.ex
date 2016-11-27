@@ -27,6 +27,7 @@ defmodule ExTestDoc do
            |> (Enum.map &(String.trim &1))
            |> get_module_name
            |> ModuleParser.parse
+           |> IO.inspect
   end
 
   defp generate_docs_for({:folder, folder_name}, dir) do
@@ -50,7 +51,6 @@ defmodule ExTestDoc do
           |> Enum.fetch!(1)
           |> String.trim
           |> String.slice(0..-5)
-          |> IO.inspect
         %Module{name: name, lines: file}
       true                ->
         get_module_name rem
