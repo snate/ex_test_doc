@@ -1,6 +1,7 @@
 defmodule ExTestDoc do
 
-  alias ExTestDoc.Module, as: Module
+  alias ExTestDoc.Module, as: ModuleInfo
+  alias ExTestDoc.ModuleParser, as: ModuleParser
 
   def generate(dir, _formatter) do
     generate(dir)
@@ -40,7 +41,7 @@ defmodule ExTestDoc do
   end
 
   defp get_module_name([]) do
-    %Module{name: "", lines: ""}
+    %ModuleInfo{name: "", lines: ""}
   end
 
   defp get_module_name(file = [fst | rem]) do
@@ -51,7 +52,7 @@ defmodule ExTestDoc do
           |> Enum.fetch!(1)
           |> String.trim
           |> String.slice(0..-5)
-        %Module{name: name, lines: file}
+        %ModuleInfo{name: name, lines: file}
       true                ->
         get_module_name rem
     end

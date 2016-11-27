@@ -1,4 +1,4 @@
-defmodule ModuleParser do
+defmodule ExTestDoc.ModuleParser do
 
   alias ExTestDoc.Module, as: Module
 
