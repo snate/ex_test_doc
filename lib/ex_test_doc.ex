@@ -5,6 +5,7 @@ defmodule ExTestDoc do
 
   def generate(dir, _formatter) do
     generate(dir)
+    |> List.flatten
     |> IO.inspect
   end
 
