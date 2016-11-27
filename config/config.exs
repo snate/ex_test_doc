@@ -22,6 +22,7 @@ use Mix.Config
 #
 
 config :ex_test_doc, build_path: "_build"
+config :ex_test_doc, output_docs_folder: "_build/test_docs"
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
