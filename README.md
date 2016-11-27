@@ -1,6 +1,6 @@
 # ExTestDoc
 
-**TODO: Add description**
+This tool helps you generate documentation for your Elixir tests.
 
 ## Installation
 
