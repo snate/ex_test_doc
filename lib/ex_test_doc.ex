@@ -4,6 +4,7 @@ defmodule ExTestDoc do
 
   def generate(dir, _formatter) do
     generate(dir)
+    |> IO.inspect
   end
 
   defp generate(dir) do
@@ -27,7 +28,6 @@ defmodule ExTestDoc do
            |> (Enum.map &(String.trim &1))
            |> get_module_name
            |> ModuleParser.parse
-           |> IO.inspect
   end
 
   defp generate_docs_for({:folder, folder_name}, dir) do

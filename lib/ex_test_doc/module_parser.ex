@@ -22,7 +22,12 @@ defmodule ModuleParser do
         test_name = String.split(test_decl,"\"")
                     |> Enum.fetch!(1)
         [{test_name, String.slice(test_description, 0..-2)} |
-          extract_tests after_doc]
+          extract_tests after_test]
+      Regex.match?(test_regex, line) ->
+        IO.inspect line
+        test_name = String.split(line,"\"")
+                    |> Enum.fetch!(1)
+        [{test_name, ""} | extract_tests rem]
       true           ->
         extract_tests rem
     end
@@ -44,6 +49,10 @@ defmodule ModuleParser do
 
   defp start_doc_regex do
     Regex.compile!("@doc[ ]\"\"\"")
+  end
+
+  defp test_regex do
+    Regex.compile!("^test*")
   end
 
   defp end_doc_regex do
