@@ -4,14 +4,16 @@ defmodule ExTestDoc.ModuleParser do
 
   def parse(%Module{name: ""}) do
     IO.puts "Empty file"
+    []
   end
 
   def parse(mod = %Module{name: name}) do
     IO.puts "Starting docs generation for " <> name <> "Test..."
-    %{mod | tests: extract_tests mod.lines}
+    %{mod | tests: (extract_tests mod.lines)}
   end
 
   def extract_tests([]) do
+    []
   end
 
   def extract_tests([line | rem]) do
@@ -24,7 +26,6 @@ defmodule ExTestDoc.ModuleParser do
         [{test_name, String.slice(test_description, 0..-2)} |
           extract_tests after_test]
       Regex.match?(test_regex, line) ->
-        IO.inspect line
         test_name = String.split(line,"\"")
                     |> Enum.fetch!(1)
         [{test_name, ""} | extract_tests rem]
