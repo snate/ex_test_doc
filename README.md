@@ -4,7 +4,7 @@ This tool helps you generate documentation for your Elixir tests.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+In order to use this package, you should:
 
   1. Add `ex_test_doc` to your list of dependencies in `mix.exs`:
 
