@@ -3,12 +3,10 @@ defmodule ExTestDoc.ModuleParser do
   alias ExTestDoc.Module, as: Module
 
   def parse(%Module{name: ""}) do
-    IO.puts "Empty file"
     []
   end
 
-  def parse(mod = %Module{name: name}) do
-    IO.puts "Starting docs generation for " <> name <> "Test..."
+  def parse(mod = %Module{name: _name}) do
     %{mod | tests: (extract_tests mod.lines)}
   end
 

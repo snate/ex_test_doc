@@ -7,7 +7,6 @@ defmodule ExTestDoc do
     generate(dir)
     |> List.flatten
     |> find_formatter(formatter).run
-    |> IO.inspect
   end
 
   defp generate(dir) do
@@ -24,7 +23,6 @@ defmodule ExTestDoc do
   end
 
   defp generate_docs_for({:file, file_name}, dir) do
-    IO.puts "Generating docs for test: " <> inspect{full_path(dir, file_name)}
     content = File.read! full_path(dir, file_name)
     content
            |> String.split("\n")
@@ -34,7 +32,6 @@ defmodule ExTestDoc do
   end
 
   defp generate_docs_for({:folder, folder_name}, dir) do
-    IO.puts "Entering folder: " <> inspect{full_path(dir, folder_name)}
     generate(full_path(dir, folder_name))
   end
 
