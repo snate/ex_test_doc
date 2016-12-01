@@ -10,15 +10,16 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 
     ```elixir
     def deps do
-      [{:ex_test_doc, "~> 0.1.0"}]
+      [{:ex_test_doc, git: "https://github.com/snate/ex_test_doc.git"}]
     end
     ```
 
-  2. Ensure `ex_test_doc` is started before your application:
+  2. Call `mix testDocs` from the root of your Elixir project. You can specify
+      the following options:
 
-    ```elixir
-    def application do
-      [applications: [:ex_test_doc]]
-    end
-    ```
-
+    * `--formatter` - select the formatter for your output files. Currently
+        only *latex* formatter is available
+    * `--directory` - specify the path to your test folder for your Elixir
+        project. It is set to *test* by default
+    * `--doc-level` - this is the depth that the generated docs is intended to
+        be included in a main document (e.g. a subsection in a LaTeX document)
