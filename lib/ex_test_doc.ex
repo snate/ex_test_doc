@@ -3,10 +3,10 @@ defmodule ExTestDoc do
   alias ExTestDoc.Module, as: ModuleInfo
   alias ExTestDoc.ModuleParser, as: ModuleParser
 
-  def generate(dir, formatter) do
-    generate(dir)
+  def run(opts) do
+    generate(opts[:dir])
     |> List.flatten
-    |> find_formatter(formatter).run
+    |> find_formatter(opts[:formatter]).run
   end
 
   defp generate(dir) do

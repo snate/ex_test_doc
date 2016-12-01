@@ -19,6 +19,7 @@ defmodule Mix.Tasks.TestDocs do
       opts
     else
       put_in opts[:formatter], :latex
+      put_in opts[:formatter], "latex"
     end
   end
 
@@ -32,6 +33,6 @@ defmodule Mix.Tasks.TestDocs do
   end
 
   defp generate(opts) do
-    ExTestDoc.generate(opts[:dir], opts[:formatter])
+    ExTestDoc.run opts
   end
 end
