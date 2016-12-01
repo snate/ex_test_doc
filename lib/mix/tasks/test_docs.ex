@@ -5,10 +5,13 @@ defmodule Mix.Tasks.TestDocs do
     Mix.Task.run "compile"
     {cli_opts, _, _} = OptionParser.parse(args,
           aliases: [f: :formatter, d: :dir],
-          switches: [formatter: :keep, directory: :string])
+          switches: [formatter: :keep,
+                     directory: :string,
+                     doc_level: :string])
     cli_opts
     |> put_formatter_if_not_specified
     |> put_dir_if_not_specified
+    |> put_level_if_not_specified
     |> generate
     Mix.shell.info [:green, "Docs for tests successfully generated"]
   end
@@ -18,7 +21,6 @@ defmodule Mix.Tasks.TestDocs do
     if form != nil do
       opts
     else
-      put_in opts[:formatter], :latex
       put_in opts[:formatter], "latex"
     end
   end
@@ -29,6 +31,15 @@ defmodule Mix.Tasks.TestDocs do
       opts
     else
       put_in opts[:dir], "test"
+    end
+  end
+
+  defp put_level_if_not_specified(opts) do
+    lev = opts[:doc_level]
+    if lev != nil do
+      opts
+    else
+      put_in opts[:doc_level], "subsection"
     end
   end
 

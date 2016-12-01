@@ -6,7 +6,7 @@ defmodule ExTestDoc do
   def run(opts) do
     generate(opts[:dir])
     |> List.flatten
-    |> find_formatter(opts[:formatter]).run
+    |> find_formatter(opts[:formatter]).run(opts)
   end
 
   defp generate(dir) do

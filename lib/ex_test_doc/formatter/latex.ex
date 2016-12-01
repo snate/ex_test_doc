@@ -1,14 +1,14 @@
 defmodule ExTestDoc.Formatter.Latex do
 
-  def run([]) do
+  def run([], _opts) do
   end
 
-  def run(modules_list) do
+  def run(modules_list, opts) do
     File.mkdir_p output_dir
     for module <- modules_list do
       write_docs_for module
     end
-    create_main_file modules_list
+    create_main_file modules_list, opts[:doc_level]
     modules_list
   end
 
@@ -60,14 +60,14 @@ defmodule ExTestDoc.Formatter.Latex do
     IO.write file, "\n  \\item \\textbf\{" <> name <> ":\} " <> desc
   end
 
-  defp create_main_file(list) do
+  defp create_main_file(list,level) do
     output_dir <> "/tests.tex"
     |> File.open!([:write])
-    |> write_main_file(list)
+    |> write_main_file(list,level)
   end
 
-  defp write_main_file(file, test_list) do
-    IO.write(file, "\\subsection\{Tests\}\n")
+  defp write_main_file(file, test_list, level) do
+    IO.write(file, "\\#{level}\{Tests\}\n")
     for test <- test_list do
       slash_separated =
         String.split(test.name,".")
