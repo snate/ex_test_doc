@@ -57,8 +57,13 @@ defmodule ExTestDoc do
     end
   end
 
-  defp find_formatter(name) do
+  defp find_formatter(name) when is_atom(name) do
     [ExTestDoc.Formatter, String.capitalize(Atom.to_string(name))]
+    |> Module.concat()
+  end
+
+  defp find_formatter(name) do
+    [ExTestDoc.Formatter, String.capitalize(name)]
     |> Module.concat()
   end
 
