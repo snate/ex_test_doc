@@ -34,7 +34,7 @@ defmodule ExTestDoc.Formatter.Latex do
   end
 
   defp write_preamble(file, name) do
-    text = "\\textbf\{"<>name<>"Test\}\n"
+    text = "\\paragraph\{"<>name<>"Test\}\n"
     IO.write file, text
     file
   end
